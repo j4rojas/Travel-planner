@@ -1,3 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+.calendarIcon {
+    position:absolute;
+    margin-left:78rem;
+    margin-top:-6.2rem;
+}
+body{
+    background-repeat: no-repeat;
+    background-image:url("images/old_well.jpg");
+    background-size: 100%;
+    background-color:rgb(3, 30, 58);
+    background-position: top 70px left 1px;
+}
+h1{
+    text-align: center;
+    margin-top: 0 auto;
+    color:white;
+    border-bottom:20px solid #0b6efd;
+    padding:11px;
+}
 p {
-    color: red;
+    text-align: center;
+    padding: 10px;
+}
+
+form {
+    border-radius: 5px;
+    border: 1px grey solid;
+    height: 400px;
+    width: 420px;
+    margin-left: 500px;
+    margin-right:500px;
+    margin-top:70px;
+    background-color:rgba(255, 255, 255, 0.842);
+}
+
+.container{
+    margin: 30px;
+}
+
+.Info{
+    font-size: 1.125rem;
+    padding: 5px;
+    margin:10px 0;
+    width:100%;
+}
+
+.firstname, .lastname, .regUsername, .regPassword {
+    width: 45%;
+}
+.firstname, .regUsername {
+    margin-right: 31.8px;
+}
+
+.checkbox-text {
+    color: #666;
+    padding:5px;
+}
+
+button {
+    width:100%;
+    margin: 25px 0 20px;
+    background-color: #0b6efd;
+    height: 2.5rem;
+    overflow-x: auto;
+    border-radius: .3125rem;
+    font-size: 1rem;
+    font-weight:400px;
+}
+
+#sigbtn, #regbtn, #resetbtn{
+    color:white;
+}
+
+.female {
+    margin-right: 50px;
+}
+.male, .single {
+    margin-right:10px;
+}
+
+.schitem {
+    background:white;
+    padding: 1rem;
+    border: 2px solid black;
+    margin: 2rem 31rem;
+}
+
+.sch {
+    text-align: left;
 }

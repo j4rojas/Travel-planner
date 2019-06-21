@@ -8,13 +8,116 @@
     <title>Document</title>
 </head>
 <body>
-    <header role="banner">
-
-    </header>
+    <header role="banner"></header>
     <main role="main">
-        <section id="startPage">
-            <p>This is my new capstone</p>
+        <section id="loginPage">
+            <h1>NC Rotations</h1>
+            <form class="loginInfo"> 
+                <div class="container">
+                    <label for="usrname"></label>
+                    <input type="text" placeholder="Username" class="username Info" name="usrname" required>
+
+                    <label for="pwd"></label>
+                    <input type="password" placeholder="Password" class="password Info" name="pwd" required>
+
+                    <label for="remember"></label>
+                    <input type="checkbox" class="checkbox-label" checked="checked" name="rememberMe">
+                    <span class="checkbox-text">Remember me</span>
+
+                    <button type="submit" id="sigbtn">Sign in</button>
+                </div>
+
+                <div class="container">
+                    <p class="pwd"> <a href="#requestpwdPage">Forgot password?</a></p>
+                    <p class="reg"><a href="#registerPage">Not Enrolled? Sign Up Now</a></p>
+                    <p class="sch"><a href="#scheduleInfo">Create a Schedule</a></p>
+                </div>
+
+            </form>
         </section>
+
+        <section id="registerPage">
+            <h1>Register</h1>
+            <form class="registerInfo">
+                <div class="container">
+
+                    <label for="firstname"></label>
+                    <input type="text" class="firstname Info"placeholder="First Name" name="firstname" required>
+
+                    <label for="lastname"></label>
+                    <input type="text" class="lastname Info"placeholder="Last Name" name="lastname" required>    
+
+                    <label for="usrname"></label>
+                    <input type="text" class="regUsername Info"placeholder="Username" name="usrname" required>
+
+                    <label for="pwd"></label>
+                    <input type="password" class="regPassword Info"placeholder="Password" name="pwd" required>
+
+                    <label for="email"></label>
+                    <input type="text" class="email Info"placeholder="Email" name="email" required>
+
+                    <label for="gender"> </label>
+                    <input type="radio" name="gender" value="male"><span class="male">Male</span>
+                    <input type="radio" name="gender" value="female"><span class="female">Female</span>
+
+                    <label for="status"> </label>
+                    <input type="radio" name="status" value="single"> <span class="single">Single</span>
+                    <input type="radio" name="status" value="married"><span class="married">Married</span>
+                    <button type="submit" id="regbtn">Register</button>
+                </div>
+
+                <div class="container">
+                    <p class="lgnin">Already have an account? <a href="#loginPage">Sign in</a>.</p>
+                </div>
+            </form>      
+        </section>
+
+        <section id="requestpwdPage">
+            <h1>Forgot Password</h1>
+            <form class="requestpwd">
+                <p>Please enter your email address, <br>we will send you a password reset link</p>
+                <div class="container">
+                    <label for="reset"></label>
+                    <input type="text" name="email" class= "email Info" placeholder= "Email" required>
+                    <button type="submit" id="resetbtn">Reset Password</button>
+                </div>
+                <div class="container">
+                    <p class="lgnin"><a href="#loginPage">Back to Login</a></p>
+                </div>          
+            </form>
+        </section>
+
+        <section id="scheduleInfo">
+            <h1>My Schedule</h1>
+            <input type="image" src="images/calendarIcon.png" class="calendarIcon"alt="calendar Icon">
+            <div class="schList"></div>  
+        </section>
+
+        <section id="addTravelPage">
+            <div class="container">
+                <h1>Travel Plans</h1>
+                <form class="addTravel">
+                    <p>Please add new Travel plans here</p>
+                    <label for="location"></label>
+                    <input type="text" class="locationInput Info"placeholder="Where" name="location" required>
+
+                    <label for="startDate"></label>
+                    <input type="date" class="startDate Info"placeholder="Start Date" name="start date" required>    
+
+                    <label for="endDate"></label>
+                    <input type="date" class="endDate Info"placeholder="End Date" name="end date" required>
+
+                    <label for="event"></label>
+                    <input type="text" class="eventInput Info"placeholder="Reason" name="event reason" required>
+
+                    <button type="submit" id="travelbtn">Add Travel</button>
+                </form>
+            </div>
+
+        </section>
+     
+
+        
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
