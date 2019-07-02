@@ -1,6 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const Schedule = require('../models').Schedule;
+const jwt = require('jsonwebtoken');
+
+router.use((req,res,next) => {
+    const token = req.param.token;
+    console.log(token);
+    if(!token) {
+        res.status(400).json({message:'token not provided'});
+        return
+    }
+    jwt.verify(token,'shhhhh',(error,userObj) => {
+        if(error){
+            res.status(400).json({message:'invalid token'});
+            return 
+        }
+        next()
+    })
+})
 
 router.get('/', (req, res) => {
     res.json({
@@ -8,7 +25,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/all',(req, res) => {
+router.get('/all/:token',(req, res) => {
     Schedule 
     .find(req.params)
     .then(schedules => res.json(schedules))
@@ -18,7 +35,6 @@ router.get('/all',(req, res) => {
     });
 });    
     
-
 router.get('/one/:id',(req,res) => {
     Schedule 
     .findById(req.params.id)
@@ -49,6 +65,7 @@ router.get('/schedule',(req,res)=> {
 });
 
 router.post('/new', (req, res) => {
+    console.log(req.body);
     const requiredFields = ['location', 'startDate','endDate', 'event'];
     for (let i=0; i<requiredFields.length; i++) {
         const field= requiredFields[i];
@@ -62,7 +79,9 @@ router.post('/new', (req, res) => {
         .create({
             location: req.body.location,
             startDate: req.body.startDate,
+            startTime: req.body.startTime,
             endDate: req.body.endDate,
+            endTime: req.body.endTime,
             event: req.body.event 
         })
         .then(schedule => res.status(201).json(schedule.serialize()))
@@ -78,10 +97,12 @@ router.put('/one/:id', (req,res) => {
             `Request path id (${req.params.id}) and request body id` +
             `(${req.body.id}) must match`;
         console.error(message);
-        return res.status(400).json({message: message});
+        return res.status(400).json({
+            message: message
+        });
     }
     const toUpdate = {};
-    const updateableFields = ['location','startDate','endDate','event'];
+    const updateableFields = ['location','startDate','startTime','endDate','endTime','event'];
 
     updateableFields.forEach(field=> {
         if(field in req.body){
@@ -91,19 +112,24 @@ router.put('/one/:id', (req,res) => {
 
     Schedule 
         .findByIDAndUpdate(req.params.id, {$set:toUpdate})
-        .then(schedule => res.status(204).end())
-        .catch(err => res.status(500).json({message: 'Internal server error'}))
+        .then(schedule => res.status(200).json({
+            location: updatedSchedule.location,
+            startDate: updatedSchedule.startDate,
+            endDate: updatedSchedule.endDate,
+            event: updatedScheule.event
+        })
+        .catch(err => res.status(500).json({message: 'Internal server error'})));
 });
 
-router.delete('/schedule/:id',(req,res)=> {
+router.delete('/one/:id',(req,res)=> {
     Schedule
         .findByIDAndRemove(req.params.id)
-        .then(() => res.status(204).end())
-        .catch(err => res.status(500).json ({message:'Internal server error'}));
+        .then(() => {
+            res.status(204).end();
+        });
 });
 
 module.exports = router;
-
 
 //ability to create event
 ////= event name

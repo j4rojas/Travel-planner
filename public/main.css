@@ -1,63 +1,68 @@
 * {
     box-sizing: border-box;
 }
-.calendarIcon {
-    position:absolute;
-    margin-left:78rem;
-    margin-top:-6.2rem;
-}
+
 body{
     background-repeat: no-repeat;
-    background-image:url("images/old_well.jpg");
+    background-image:url("images/old_well2.jpg");
     background-size: 100%;
     background-color:rgb(3, 30, 58);
     background-position: top 70px left 1px;
 }
+
 h1{
     text-align: center;
     margin-top: 0 auto;
     color:white;
     border-bottom:20px solid #0b6efd;
     padding:11px;
+    position:relative;
 }
 p {
     text-align: center;
-    padding: 10px;
+    padding: 9px;
+    margin-top: 2px;
 }
 
 form {
     border-radius: 5px;
     border: 1px grey solid;
-    height: 400px;
-    width: 420px;
-    margin-left: 500px;
-    margin-right:500px;
-    margin-top:70px;
+    height: 28%;
+    width: 30%;
+    margin:85px auto;
     background-color:rgba(255, 255, 255, 0.842);
+    position: relative;
 }
 
-.container{
-    margin: 30px;
+
+.container {
+    margin: 25px;
 }
 
-.Info{
+.Info {
     font-size: 1.125rem;
     padding: 5px;
     margin:10px 0;
     width:100%;
 }
 
-.firstname, .lastname, .regUsername, .regPassword {
+.firstname, .lastname, .regUsername,.regPassword,
+.startDate,.startTime, .endDate, .endTime {
     width: 45%;
 }
-.firstname, .regUsername {
+.firstname, .regUsername, 
+.startDate, .endDate {
     margin-right: 31.8px;
+}
+
+.pStart, .pEnd{
+    margin: -2px;
 }
 
 .checkbox-text {
     color: #666;
     padding:5px;
-}
+} 
 
 button {
     width:100%;
@@ -86,8 +91,66 @@ button {
     padding: 1rem;
     border: 2px solid black;
     margin: 2rem 31rem;
+    position:relative;
 }
 
-.sch {
-    text-align: left;
+.calendarIcon {
+    position:absolute;
+    margin-left:78rem;
+    margin-top:-6.2rem;
+}
+
+.middle, .middleEvent {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 12%;
+    left: 83.5%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+.middleEvent {
+    left: 15%;
+}  
+.travel:hover .calendarIcon, .eventImg:hover .eventIcon {
+    opacity: 0.3;
+}
+
+.travel:hover .middle, .eventImg:hover .middleEvent {
+    opacity: 1;
+  }
+.text {
+    background-color:rgb(3, 30, 58);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+}  
+.eventIcon {
+    position:absolute;
+    margin-left:7rem;
+    margin-top:-6.2rem;
+    width:50px;
+    height:50px;
+}
+
+.deleteIcon, .editIcon {
+    position:relative;
+    width:30px;
+    height:32px;
+    margin-left: 90%;
+    margin-top:-6%;
+}
+
+.searchPpl {
+    padding: 15px;
+    margin: 0 auto;
+    width: 100%;
+    opacity: 1;
+    font-size:20px;
+}
+
+.searchBar{
+    background-color: rgba(29, 3, 3, 0);
+    border:none;
 }

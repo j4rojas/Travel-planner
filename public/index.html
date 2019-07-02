@@ -10,12 +10,13 @@
 <body>
     <header role="banner"></header>
     <main role="main">
+
         <section id="loginPage">
             <h1>NC Rotations</h1>
             <form class="loginInfo"> 
                 <div class="container">
                     <label for="usrname"></label>
-                    <input type="text" placeholder="Username" class="username Info" name="usrname" required>
+                    <input type="text" placeholder="Username" class="username-login Info" name="usrname" required>
 
                     <label for="pwd"></label>
                     <input type="password" placeholder="Password" class="password Info" name="pwd" required>
@@ -26,13 +27,11 @@
 
                     <button type="submit" id="sigbtn">Sign in</button>
                 </div>
-
                 <div class="container">
                     <p class="pwd"> <a href="#requestpwdPage">Forgot password?</a></p>
                     <p class="reg"><a href="#registerPage">Not Enrolled? Sign Up Now</a></p>
                     <p class="sch"><a href="#scheduleInfo">Create a Schedule</a></p>
                 </div>
-
             </form>
         </section>
 
@@ -40,7 +39,6 @@
             <h1>Register</h1>
             <form class="registerInfo">
                 <div class="container">
-
                     <label for="firstname"></label>
                     <input type="text" class="firstname Info"placeholder="First Name" name="firstname" required>
 
@@ -65,7 +63,6 @@
                     <input type="radio" name="status" value="married"><span class="married">Married</span>
                     <button type="submit" id="regbtn">Register</button>
                 </div>
-
                 <div class="container">
                     <p class="lgnin">Already have an account? <a href="#loginPage">Sign in</a>.</p>
                 </div>
@@ -89,32 +86,87 @@
 
         <section id="scheduleInfo">
             <h1>My Schedule</h1>
-            <input type="image" src="images/calendarIcon.png" class="calendarIcon"alt="calendar Icon">
-            <div class="schList"></div>  
+            <div class="travel">
+                <img src="images/calendarIcon.png" class="calendarIcon"alt="calendar Icon">
+                <div class="middle">
+                <div class="text">Add Travel Plans</div>
+                </div>
+            </div>
+            <div class="eventImg">
+                <img src="images/eventIcon.png" class="eventIcon" alt="event Icon">
+                <div class="middleEvent">
+                    <div class="text">Create Events</div>
+                </div>
+            </div>    
+           <div class="schList"></div>  
         </section>
 
         <section id="addTravelPage">
-            <div class="container">
-                <h1>Travel Plans</h1>
-                <form class="addTravel">
-                    <p>Please add new Travel plans here</p>
+            <h1>Travel Plans</h1>
+            <form class="addTravel">
+                <div class="container">
                     <label for="location"></label>
                     <input type="text" class="locationInput Info"placeholder="Where" name="location" required>
 
+                    <label for="event"></label>
+                    <input type="text" class="eventInput Info"placeholder="Reason" name="event reason" required>
+                   
+                    <p class="pStart">Start Date and Time</p>
                     <label for="startDate"></label>
-                    <input type="date" class="startDate Info"placeholder="Start Date" name="start date" required>    
-
+                    <input type="date"class="startDate Info"placeholder="Start Date" name="start date" required>   
+                    <label for="startTime"></label>
+                    <input type="time" class="startTime Info" placeholder="Start Time" name="start time" required>
+                   
+                    <p class="pEnd">End  Date and Time</p>
                     <label for="endDate"></label>
                     <input type="date" class="endDate Info"placeholder="End Date" name="end date" required>
 
-                    <label for="event"></label>
-                    <input type="text" class="eventInput Info"placeholder="Reason" name="event reason" required>
+                    <label for="endTime"></label>
+                    <input type="time" class="endTime Info" placeholder="End Time" name="end time" required>
 
                     <button type="submit" id="travelbtn">Add Travel</button>
-                </form>
-            </div>
-
+                </div>
+            </form>
         </section>
+
+        <section id="createEventPage">
+                <h1>Create Event</h1>
+                <form class="createEvent">
+                    <div class="container">
+                        <label for="location"></label>
+                        <input type="text" class="locationInput Info"placeholder="Event Location" name="location" required>
+    
+                        <label for="event"></label>
+                        <input type="text" class="eventName Info"placeholder="Event Name" name="event" required>
+                       
+                        <p class="pStart">Start Date and Time</p>
+                        <label for="startDate"></label>
+                        <input type="date"class="startDate Info"placeholder="Start Date" name="start date" required>   
+                        <label for="startTime"></label>
+                        <input type="time" class="startTime Info" placeholder="Start Time" name="start time" required>
+                       
+                        <p class="pEnd">End  Date and Time</p>
+                        <label for="endDate"></label>
+                        <input type="date" class="endDate Info"placeholder="End Date" name="end date">
+                        <label for="endTime"></label>
+                        <input type="time" class="endTime Info" placeholder="End Time" name="end time">
+
+                        <button type="submit" id="eventbtn">Create Event</button>
+                    </div>
+                </form>
+            </section>
+        <section id="assignPage">
+            <h1></h1>
+            <form class="searchBar">
+            <div class="container">
+                <label for="assignSearch"></label>
+                <input type="text" class="searchPpl" placeholder="Assign available people" name="assignPpl">
+            </div>
+            <div class="assignResults"></div>
+            </form>
+        </section>
+
+        
      
 
         

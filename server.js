@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const scheduleRoutes = require('./routes/schedule.route');
+const personRoutes = require('./routes/person.route');
 const {PORT, DATABASE_URL} = require('./config');
 
 const app = express();
@@ -12,6 +13,7 @@ const app = express();
 app.use('/', express.static('public'));
 app.use(express.json());
 app.use('/schedule', scheduleRoutes);
+app.use('/person',personRoutes);
 
 let server;
 
