@@ -22,7 +22,6 @@ function registerPage(){
 }
 registerPage();
 
-
 function loginPage(){
     $('.lgnin').click(function(event){
         $('#registerPage').hide();
@@ -32,10 +31,18 @@ function loginPage(){
 }
 loginPage(); 
 
+function schedulePage(){
+    $('.sch').click(function(event){
+        $('#scheduleInfo').show();
+        $('#loginPage').hide();
+        getSchedules();
+    });
+}
+schedulePage();
+
 function verifyUser() {
     $('#sigbtn').click(function(event){
         event.preventDefault();
-        $('#loginPage').hide();
         const data ={
             email: $('.username-login').val(),
             password: $('.password').val(),
@@ -51,7 +58,12 @@ function verifyUser() {
             return response.json();
         })
         .then(function(myJson){
+            if (myJson.error) {
+                alert(myJson.message);
+                return
+            }
             console.log(myJson.token);
+            $('#loginPage').hide();
             localStorage.setItem('token', myJson.token);
             getSchedules();
             $('#scheduleInfo').show();
@@ -61,44 +73,39 @@ function verifyUser() {
 }
 verifyUser();
 
-function schedulePage(){
-    $('.sch').click(function(event){
-        $('#scheduleInfo').show();
-        $('#loginPage').hide();
-        getSchedules();
-    });
-}
-schedulePage();
-
 function getSchedules() {
     console.log('get schedule');
-    fetch('/schedule/all/'+localStorage.getItem('token'))
+    fetch('/schedule/all/'+ localStorage.getItem('token'), {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'GET',
+    })
         .then(function(response) {
             return response.json();
         })
         .then(function(myJson){
+            if(myJson.error) {
+                alert(myJson.message);
+                return
+            }
             console.log(myJson);
             for(let i =0; i<myJson.length;i++) {
                 $('.schList').append(`<details class="schitem">
-                <summary class="sch summary">${myJson[i].startDate}
-                <img src="images/deleteIcon.png" class="deleteIcon alt="deleteIcon"></summary> 
+                <summary class="sch summary">${myJson[i].startDate} - ${myJson[i].endDate}</summary> 
                 <p class="sch location">Location: ${myJson[i].location}</p>
                 <p class="sch stDate">Start Date: ${myJson[i].startDate} </p>
                 <p class="sch edDate">End Date: ${myJson[i].endDate}</p> 
                 <p class="sch event">Reason for Travel: ${myJson[i].event}</p>
-                <img src="images/editIcon.png" class="editIcon" alt="editIcon"
                 </details>`);
             }
         })
 };
-getSchedules();
-
 
 function createSchedule() {
     $('.calendarIcon').click(function(){
        $('#addTravelPage').show();
        $('#scheduleInfo').hide();
-       
     });
 }
 createSchedule();
@@ -128,7 +135,6 @@ function addUser() {
         fetch('/person/new', {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             method:'POST',
             body: JSON.stringify(data),
@@ -137,6 +143,10 @@ function addUser() {
             return response.json();
         })
         .then(function(myJson){
+            if(myJson.error) {
+                alert(myJson.message);
+                return
+            }
             console.log(myJson);
         })
         .catch(error => console.error(error));
@@ -144,13 +154,12 @@ function addUser() {
 }
 addUser();
 
-
-
 //adds schedule
 function addTravel() {
     $('#travelbtn').click(function(event){
         event.preventDefault();
         $('#addTravelPage').hide();
+        $('#scheduleInfo').show();
         const data = {
             location: $('.locationInput').val(),
             event: $('.eventInput').val(),
@@ -160,7 +169,6 @@ function addTravel() {
         fetch('/schedule/new', {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             method:'POST',
             body: JSON.stringify(data),
@@ -169,17 +177,21 @@ function addTravel() {
             return response.json();
         })
         .then(function(myJson){
+            if(myJson.error) {
+                alert(myJson.message);
+                return
+            }
             console.log(myJson);
         })
         .catch(error => console.error(error));
     })
 }
 addTravel();
-
+/*
 //deletes a schedule
 $(document).on('click','.deleteIcon',function (){
     console.log('testing delete');
-    fetch('/schedule/one/:id', { //get id through click event, value (localstorge +)
+    fetch('/schedule/one' + localStorage.getItem('id'), { 
         headers: {
             'Content-Type': 'application/json',
         },
@@ -189,7 +201,12 @@ $(document).on('click','.deleteIcon',function (){
     return response.json();
     })
     .then(function(myJson){
-        console.log(myJson);
+        if(myJson.error) {
+            alert(myJson.message);
+            return
+        }
+        console.log(myJson.id);
+        localStorage.setItem('id', myJson.id);
     })
     .catch(error => console.error(error));
 })
@@ -217,10 +234,14 @@ $(document).on('click','.editIcon',function (){
     return response.json();
     })
     .then(function(myJson){
+        if(myJson.error) {
+            alert(myJson.message);
+            return
+        }
         console.log(myJson);
     })
     .catch(error => console.error(error));
-})
+}) */
 
 
 function assignPeople(){
@@ -232,3 +253,9 @@ function assignPeople(){
 }
 assignPeople();
 
+
+
+//add feedback
+//verify token on routes (delete, new, etc)
+//add error on back end calls 
+//save userID on schedules & set on the route 

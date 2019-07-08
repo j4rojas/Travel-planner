@@ -74,7 +74,7 @@ router.post('/login',(req,res)=> {
     Person.findOne({email:req.body.email}) 
     .then(personFind => {
         if(!personFind) {
-            res.status(400).json({message:'User does not exist'});
+            res.status(400).json({message:'User does not exist', error:true});
         } 
         else {
             if(bcrypt.compareSync(req.body.password, personFind.password)){
@@ -87,7 +87,7 @@ router.post('/login',(req,res)=> {
                 res.status(200).json({message:'login details match',token:token});
                 $('#schedulePage').show();
             } else {
-                res.status(402).json({message:'Password does not match'});
+                res.status(402).json({message:'Password does not match', error:true});
             }
         }
     })

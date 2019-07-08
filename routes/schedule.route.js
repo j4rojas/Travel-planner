@@ -3,8 +3,8 @@ const router = express.Router();
 const Schedule = require('../models').Schedule;
 const jwt = require('jsonwebtoken');
 
-router.use((req,res,next) => {
-    const token = req.param.token;
+function verifyToken (req,res,next) {
+    const token = req.params.token;
     console.log(token);
     if(!token) {
         res.status(400).json({message:'token not provided'});
@@ -17,7 +17,7 @@ router.use((req,res,next) => {
         }
         next()
     })
-})
+}
 
 router.get('/', (req, res) => {
     res.json({
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.get('/all/:token',(req, res) => {
+router.get('/all/:token',verifyToken,(req, res) => {
     Schedule 
     .find(req.params)
     .then(schedules => res.json(schedules))
@@ -64,7 +64,8 @@ router.get('/schedule',(req,res)=> {
         });
 });
 
-router.post('/new', (req, res) => {
+
+router.post('/new', (req, res) => { 
     console.log(req.body);
     const requiredFields = ['location', 'startDate','endDate', 'event'];
     for (let i=0; i<requiredFields.length; i++) {
