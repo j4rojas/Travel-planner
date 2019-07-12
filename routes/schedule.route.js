@@ -73,7 +73,7 @@ router.get('/schedule',(req,res)=> {
 });
 
 
-router.post('/new', (req, res) => { 
+router.post('/new/:token', verifyToken, (req, res) => {  
     console.log(req.body);
     const requiredFields = ['location', 'startDate','endDate', 'event'];
     for (let i=0; i<requiredFields.length; i++) {
@@ -140,9 +140,9 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
         .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-router.delete('/one/:id',(req,res)=> {
+router.delete('/one/:id/:token',verifyToken,(req,res)=> {
     Schedule
-        .findByIDAndRemove(req.params.id)
+        .findByIdAndRemove(req.params.id)
         .then(() => {
             res.status(204).end();
         });

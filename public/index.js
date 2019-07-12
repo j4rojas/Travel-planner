@@ -6,6 +6,11 @@ $('#testing').hide();
 $('#createEventPage').hide();
 $('#assignPage').hide();
 
+
+//check at the beginning if you have the token
+////if/else
+//implement testing
+//add update (same as delete)
 function forgotPage(){
     $('.pwd').click(function(){
         $('#requestpwdPage').show();
@@ -30,15 +35,6 @@ function loginPage(){
     });
 }
 loginPage(); 
-
-function schedulePage(){
-    $('.sch').click(function(event){
-        $('#scheduleInfo').show();
-        $('#loginPage').hide();
-        getSchedules();
-    });
-}
-schedulePage();
 
 function verifyUser() {
     $('#sigbtn').click(function(event){
@@ -85,7 +81,7 @@ function addTravel() {
             startDate: $('.startDate').val(),
             endDate: $('.endDate').val()
        }
-        fetch('/schedule/new', {
+        fetch('/schedule/new/' + localStorage.getItem('token'), {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -100,6 +96,7 @@ function addTravel() {
                 alert(myJson.message);
                 return
             }
+            getSchedules();
             console.log(myJson);
         })
         .catch(error => console.error(error));
@@ -109,7 +106,7 @@ addTravel();
 
 function getSchedules() {
     console.log('get schedule');
-    fetch('/schedule/all'+ localStorage.getItem('token'), {
+    fetch('/schedule/all/'+ localStorage.getItem('token'), {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -126,11 +123,13 @@ function getSchedules() {
             console.log(myJson);
             for(let i =0; i<myJson.length;i++) {
                 $('.schList').append(`<details class="schitem">
-                <summary class="sch summary">${myJson[i].startDate} - ${myJson[i].endDate}</summary> 
+                <summary class="sch summary">${myJson[i].startDate}</summary>
+                <input type="image" src="images/deleteIcon.png" class="deleteIcon" value="${myJson[i]._id}" alt="deleteIcon"/>
                 <p class="sch location">Location: ${myJson[i].location}</p>
                 <p class="sch stDate">Start Date: ${myJson[i].startDate} </p>
                 <p class="sch edDate">End Date: ${myJson[i].endDate}</p> 
                 <p class="sch event">Reason for Travel: ${myJson[i].event}</p>
+                <input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
                 </details>`);
             }
         })
@@ -188,16 +187,16 @@ function addUser() {
 }
 addUser();
 
-/*
+
 //deletes a schedule
-$(document).on('click','.deleteIcon',function (){
+$(document).on('click','.deleteIcon',function (event){
     console.log('testing delete');
-    fetch('/schedule/one' + localStorage.getItem('id'), { 
+    fetch('/schedule/one/' + event.currentTarget.value +'/'+localStorage.getItem('token'), { 
         headers: {
             'Content-Type': 'application/json',
         },
         method:'DELETE',
-    })
+    }) 
     .then(function(response){
     return response.json();
     })
@@ -206,14 +205,12 @@ $(document).on('click','.deleteIcon',function (){
             alert(myJson.message);
             return
         }
-        console.log(myJson.id);
-        localStorage.setItem('id', myJson.id);
     })
     .catch(error => console.error(error));
-}) */
+})
 
-
-/*$(document).on('click','.editIcon',function (){
+//updates schedule 
+$(document).on('click','.editIcon',function (event){
     console.log('testing edit Travel');
     const data = {
         location: $('.location').val(),
@@ -223,7 +220,7 @@ $(document).on('click','.deleteIcon',function (){
         endTime: $('.endTime').val(),
         event: $('.event').val()
     } //get id and put in front end + token
-    fetch('/one/', + {
+    fetch('/one/', event.currentTarget.value+'/'+localStorage.getItem('token'), {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -241,7 +238,7 @@ $(document).on('click','.deleteIcon',function (){
         console.log(myJson);
     })
     .catch(error => console.error(error));
-}) */
+}) 
 
 
 function assignPeople(){
