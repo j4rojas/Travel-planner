@@ -15,6 +15,7 @@ function verifyToken (req,res,next) {
             res.status(400).json({message:'invalid token'});
             return 
         }
+        req.user=userObj 
         next()
     })
 }
@@ -27,7 +28,7 @@ router.get('/', (req, res) => {
 
 router.get('/all/:token',verifyToken,(req, res) => {
     Schedule 
-    .find(req.params)
+    .find({person:req.user.id})
     .then(schedules => res.json(schedules))
     .catch(err => {
         console.error(err);
@@ -35,10 +36,17 @@ router.get('/all/:token',verifyToken,(req, res) => {
     });
 });    
     
-router.get('/one/:id',(req,res) => {
+router.get('/one/:id/:token',verifyToken,(req,res) => {
     Schedule 
     .findById(req.params.id)
-    .then(schedule => res.json(schedule.serialize()))
+    .then(schedule => {
+        if(schedule.person===req.user.id) {
+        res.json(schedule.serialize())
+        }
+        else {
+            res.status(400).json({message:'User does not belong to schedule'})
+        }
+    })
     .catch(err => {
         console.error(err);
         res.status(500).json({message:'Internal server error'})
@@ -78,7 +86,8 @@ router.post('/new', (req, res) => {
     }
     Schedule
         .create({
-            location: req.body.location,
+            person: req.user.id,
+            location: req.body.location,                                   
             startDate: req.body.startDate,
             startTime: req.body.startTime,
             endDate: req.body.endDate,
@@ -92,7 +101,7 @@ router.post('/new', (req, res) => {
         });
 });
 
-router.put('/one/:id', (req,res) => {
+router.put('/one/:id/:token',verifyToken, (req,res) => {
     if(!(req.params.id && req.body.id && req.param ===req.body.id)) {
         const message = 
             `Request path id (${req.params.id}) and request body id` +
@@ -112,14 +121,23 @@ router.put('/one/:id', (req,res) => {
     });
 
     Schedule 
-        .findByIDAndUpdate(req.params.id, {$set:toUpdate})
-        .then(schedule => res.status(200).json({
-            location: updatedSchedule.location,
-            startDate: updatedSchedule.startDate,
-            endDate: updatedSchedule.endDate,
-            event: updatedScheule.event
+        .findById(req.params.id)
+        //.findByIDAndUpdate(req.params.id, {$set:toUpdate})
+        .then(schedule => {
+           if(schedule.person ===req.user.id) {
+            schedule.location = req.body.location,
+            schedule.startDate = req.body.startDate,
+            schedule.endDate = req.body.endDate,
+            schedule.event = req.body.event
+            schedule.save()
+            .then(schedule => schedule.serialize())
+            .catch(err => res.status(500).json({message: 'Internal server error'}));
+           }
+           else{
+               res.status(400).json({message:'schedule does not match'});
+           }
         })
-        .catch(err => res.status(500).json({message: 'Internal server error'})));
+        .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
 router.delete('/one/:id',(req,res)=> {

@@ -12,8 +12,8 @@ router.get('/people',(req,res)=> {
         res.json(people.map(author => {
             return {
                 id: person._id,
-                name: `${person.firstName} ${author.lastName}`,
-                userName: author.userName
+                name: `${person.firstName} ${person.lastName}`,
+                userName: person.userName
             };
         }));
     })
@@ -70,8 +70,8 @@ router.post('/new', (req, res) => {
 });
 
 router.post('/login',(req,res)=> {
-    console.log(req.body.email);
-    Person.findOne({email:req.body.email}) 
+    console.log(req.body.userName);
+    Person.findOne({userName:req.body.userName}) 
     .then(personFind => {
         if(!personFind) {
             res.status(400).json({message:'User does not exist', error:true});

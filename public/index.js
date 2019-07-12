@@ -44,7 +44,7 @@ function verifyUser() {
     $('#sigbtn').click(function(event){
         event.preventDefault();
         const data ={
-            email: $('.username-login').val(),
+            userName: $('.username-login').val(),
             password: $('.password').val(),
         }
         fetch('/person/login', {
@@ -73,9 +73,43 @@ function verifyUser() {
 }
 verifyUser();
 
+//adds schedule
+function addTravel() {
+    $('#travelbtn').click(function(event){
+        event.preventDefault();
+        $('#addTravelPage').hide();
+        $('#scheduleInfo').show();
+        const data = {
+            location: $('.locationInput').val(),
+            event: $('.eventInput').val(),
+            startDate: $('.startDate').val(),
+            endDate: $('.endDate').val()
+       }
+        fetch('/schedule/new', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method:'POST',
+            body: JSON.stringify(data),
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(myJson){
+            if(myJson.error) {
+                alert(myJson.message);
+                return
+            }
+            console.log(myJson);
+        })
+        .catch(error => console.error(error));
+    })
+}
+addTravel();
+
 function getSchedules() {
     console.log('get schedule');
-    fetch('/schedule/all/'+ localStorage.getItem('token'), {
+    fetch('/schedule/all'+ localStorage.getItem('token'), {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -154,39 +188,6 @@ function addUser() {
 }
 addUser();
 
-//adds schedule
-function addTravel() {
-    $('#travelbtn').click(function(event){
-        event.preventDefault();
-        $('#addTravelPage').hide();
-        $('#scheduleInfo').show();
-        const data = {
-            location: $('.locationInput').val(),
-            event: $('.eventInput').val(),
-            startDate: $('.startDate').val(),
-            endDate: $('.endDate').val()
-       }
-        fetch('/schedule/new', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method:'POST',
-            body: JSON.stringify(data),
-        })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(myJson){
-            if(myJson.error) {
-                alert(myJson.message);
-                return
-            }
-            console.log(myJson);
-        })
-        .catch(error => console.error(error));
-    })
-}
-addTravel();
 /*
 //deletes a schedule
 $(document).on('click','.deleteIcon',function (){
@@ -209,11 +210,10 @@ $(document).on('click','.deleteIcon',function (){
         localStorage.setItem('id', myJson.id);
     })
     .catch(error => console.error(error));
-})
+}) */
 
-//updates current schedule 
 
-$(document).on('click','.editIcon',function (){
+/*$(document).on('click','.editIcon',function (){
     console.log('testing edit Travel');
     const data = {
         location: $('.location').val(),
@@ -222,8 +222,8 @@ $(document).on('click','.editIcon',function (){
         endDate: $('.endDate').val(),
         endTime: $('.endTime').val(),
         event: $('.event').val()
-    }
-    fetch('/one/:id', {
+    } //get id and put in front end + token
+    fetch('/one/', + {
         headers: {
             'Content-Type': 'application/json',
         },
