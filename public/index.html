@@ -56,10 +56,12 @@
                     <input type="radio" name="gender" value="male"><span class="male">Male</span>
                     <input type="radio" name="gender" value="female"><span class="female">Female</span>
 
+                    <div id="status">
                     <label for="status"> </label>
                     <input type="radio" name="status" value="single"> <span class="single">Single</span>
                     <input type="radio" name="status" value="married"><span class="married">Married</span>
                     <button type="submit" id="regbtn">Register</button>
+                    </div>
                 </div>
                 <div class="container">
                     <p class="lgnin">Already have an account? <a href="#loginPage">Sign in</a>.</p>
@@ -95,8 +97,40 @@
                 <div class="middleEvent">
                     <div class="text">Create Events</div>
                 </div>
-            </div>    
-           <div class="schList"></div>  
+            </div>
+            <div class="schList"></div>   
+            <div class="signOut">
+                <button type="submit" id="signOut">Sign Out</button>
+            </div>  
+        </section>
+
+        <section id="editForm">
+            <h1>Update Travel Plans</h1>
+            <form class="upDateTravel">
+                <div class="container">
+                
+                    <label for="event"></label>
+                    <input type="text" class="eventInput2 Info"placeholder="Reason" name="event reason" required>
+                   
+                    <label for="location"></label>
+                    <input type="text" class="locationInput2 Info"placeholder="Where" name="location" required>
+
+                    <p class="pStart">Start Date and Time</p>
+                    <label for="startDate"></label>
+                    <input type="date"class="startDate2 Info"placeholder="Start Date" name="start date" required>   
+                    <label for="startTime"></label>
+                    <input type="time" class="startTime2 Info" placeholder="Start Time" name="start time" required>
+                   
+                    <p class="pEnd">End  Date and Time</p>
+                    <label for="endDate"></label>
+                    <input type="date" class="endDate2 Info"placeholder="End Date" name="end date" required>
+
+                    <label for="endTime"></label>
+                    <input type="time" class="endTime2 Info" placeholder="End Time" name="end time" required>
+
+                    <button type="submit" id="updateTravelbtn">Change Travel</button>
+                </div>
+            </form>
         </section>
 
         <section id="addTravelPage">
@@ -131,12 +165,9 @@
                 <h1>Create Event</h1>
                 <form class="createEvent">
                     <div class="container">
-                        <label for="location"></label>
-                        <input type="text" class="locationInput Info"placeholder="Event Location" name="location" required>
+                        <label for="description"></label>
+                        <input type="text" class="descriptionInput Info"placeholder="Description (Babysitting @ Deming)" name="description" required>
     
-                        <label for="event"></label>
-                        <input type="text" class="eventName Info"placeholder="Event Name" name="event" required>
-                       
                         <p class="pStart">Start Date and Time</p>
                         <label for="startDate"></label>
                         <input type="date"class="startDate Info"placeholder="Start Date" name="start date" required>   
@@ -152,25 +183,23 @@
                         <button type="submit" id="eventbtn">Create Event</button>
                     </div>
                 </form>
-            </section>
+        </section>
+
         <section id="assignPage">
-            <h1></h1>
+            <h1>Assign Available people</h1>
             <form class="searchBar">
             <div class="container">
                 <label for="assignSearch"></label>
                 <input type="text" class="searchPpl" placeholder="Assign available people" name="assignPpl">
+                <button type="submit" id="searchBtn">Search</button>
             </div>
-            <div class="assignResults"></div>
+            <div class="results"></div>
             </form>
         </section>
-
-        
-     
-
-        
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
+

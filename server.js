@@ -6,6 +6,7 @@ mongoose.Promise = global.Promise;
 
 const scheduleRoutes = require('./routes/schedule.route');
 const personRoutes = require('./routes/person.route');
+const eventRoutes = require('./routes/event.route');
 const {PORT, DATABASE_URL} = require('./config');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use('/', express.static('public'));
 app.use(express.json());
 app.use('/schedule', scheduleRoutes);
 app.use('/person',personRoutes);
+app.use('/event',eventRoutes);
 
 let server;
 
@@ -58,20 +60,3 @@ if (require.main === module) {
 }
 
 module.exports = { app, runServer, closeServer };
-
-
-
-//app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-
-//* create DB, make models schema and connect
-
-//1.make mongo in the cloud -> with this done, I will have a string DB in atlas
-//2. integrate mongo with express app (server.js)
-
-//lesson 2.1 & 2.4 create account and DB
-
-//schema plan (add, delete schedule)
-//do the register
-//do the login
-//verify token

@@ -9,7 +9,7 @@ router.get('/people',(req,res)=> {
     Person
     .find()
     .then(people => {
-        res.json(people.map(author => {
+        res.json(people.map(people => {
             return {
                 id: person._id,
                 name: `${person.firstName} ${person.lastName}`,
@@ -22,6 +22,8 @@ router.get('/people',(req,res)=> {
         res.status(500).json({error:'something went wrong'});
     });
 });
+
+//new User
 
 router.post('/new', (req, res) => {
     console.log(req.body);
@@ -51,9 +53,11 @@ router.post('/new', (req, res) => {
                 .create({
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
-                    email: req.body.email,
                     userName: req.body.userName,
-                    password: hash
+                    email: req.body.email,
+                    password: hash,
+                    gender: req.body.gender,
+                    status: req.body.status
                 })
                 .then(person => res.status(201).json(person.serialize()))
                 .catch(err => {
@@ -75,6 +79,7 @@ router.post('/login',(req,res)=> {
     .then(personFind => {
         if(!personFind) {
             res.status(400).json({message:'User does not exist', error:true});
+            return
         } 
         else {
             if(bcrypt.compareSync(req.body.password, personFind.password)){
@@ -85,9 +90,10 @@ router.post('/login',(req,res)=> {
                 }
                 var token = jwt.sign(userObj, 'shhhhh');
                 res.status(200).json({message:'login details match',token:token});
-                $('#schedulePage').show();
+                return
             } else {
                 res.status(402).json({message:'Password does not match', error:true});
+                return
             }
         }
     })
@@ -98,6 +104,3 @@ router.post('/login',(req,res)=> {
 })
 
 module.exports = router;
-
-//fetch to login route w/ header and post 
-//console log token in login response --> frontend

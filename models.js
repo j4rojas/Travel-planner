@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-// this is our schema to represent a restaurant
+// schema to represent user
 const personSchema = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -11,26 +11,30 @@ const personSchema = mongoose.Schema({
   userName: {
       type:'string',
       unique: true
-  }
+  },
+  gender: {type: String, possibleValues: ['male','female']},
+  status: {type:String, possibleValues: ['married','single']}
 });   
 
+// schema to represent an event
 const eventSchema = mongoose.Schema({
-    location: {type: String, required: true},
-    eventName: {type: String, required: true},
+    person:{type:mongoose.Schema.Types.ObjectId, ref:'Person'},
+    description: {type: String, required: true},
     startDate: {type:Date, required:true},
-    //startTime:{type:Date}
+    //startTime:{type:String},
     endDate: {type:Date, required:true},
-    //endTime: {type:DataTypes.Time, required:true},
+    //endTime: {type:String}
 
 });
 
+//schema to represent a schedule 
 const scheduleSchema = mongoose.Schema({
     person: { type: mongoose.Schema.Types.ObjectId, ref: 'Person'},
     location: {type: String, required: true },
-    startDate: {type: Date,trim:true, required: true },
-   // startTime: {type:DataTypes.Time, required:true},
+    startDate: {type: Date, required: true },
+    startTime: {type:String},
     endDate: {type: Date, required: true },
-    //endTime: {type:DataTypes.Time, required:true},
+    endTime: {type:String},
     event: {type: String, required: true}
 });
 
@@ -41,9 +45,9 @@ personSchema.methods.serialize = function() {
     lastName: this.lastName,
     userName: this.userName,
     email: this.email,
-    password: this.password
-    //gender: this.gender,
-    //status: this.status
+    password: this.password,
+    gender: this.gender,
+    status: this.status
   };
 };
 
@@ -64,8 +68,7 @@ scheduleSchema.virtual('personName').get(function(){
 eventSchema.methods.serialize = function() {
     return {
       id: this._id,  
-      location: this.location,
-      eventName: this.event,
+      description: this.description,
       startDate: this.startDate,
       //startTime: this.startTime,
       endDate: this.userName,
@@ -87,5 +90,5 @@ var Person = mongoose.model('Person', personSchema);
 const Schedule = mongoose.model('Schedule', scheduleSchema);  
 const Event = mongoose.model('Event',eventSchema);
 
-module.exports = { Person, Schedule,Event};
+module.exports = {Person, Schedule,Event};
 

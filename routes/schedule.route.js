@@ -102,15 +102,7 @@ router.post('/new/:token', verifyToken, (req, res) => {
 });
 
 router.put('/one/:id/:token',verifyToken, (req,res) => {
-    if(!(req.params.id && req.body.id && req.param ===req.body.id)) {
-        const message = 
-            `Request path id (${req.params.id}) and request body id` +
-            `(${req.body.id}) must match`;
-        console.error(message);
-        return res.status(400).json({
-            message: message
-        });
-    }
+    console.log('testing update');
     const toUpdate = {};
     const updateableFields = ['location','startDate','startTime','endDate','endTime','event'];
 
@@ -119,14 +111,23 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
             toUpdate[field] = req.body[field];
         }
     });
-
-    Schedule 
+    console.log(req.params.id);
+    console.log('best');
+    Schedule.findByIdAndUpdate(req.params.id, function(err,schedule){
+        console.log('inside findById');
+        console.log(err);
+        console.log(schedule);
+    })
+    /*Schedule 
         .findById(req.params.id)
-        //.findByIDAndUpdate(req.params.id, {$set:toUpdate})
         .then(schedule => {
+            console.log('inside find by id');
+            console.log(schedule.person);
+            console.log(req.user.id);
            if(schedule.person ===req.user.id) {
             schedule.location = req.body.location,
             schedule.startDate = req.body.startDate,
+            schedule.startTime = req.body.startTime,
             schedule.endDate = req.body.endDate,
             schedule.event = req.body.event
             schedule.save()
@@ -137,7 +138,7 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
                res.status(400).json({message:'schedule does not match'});
            }
         })
-        .catch(err => res.status(500).json({message: 'Internal server error'}));
+        .catch(err => res.status(500).json({message: 'Internal server error'})); */
 });
 
 router.delete('/one/:id/:token',verifyToken,(req,res)=> {
@@ -147,21 +148,4 @@ router.delete('/one/:id/:token',verifyToken,(req,res)=> {
             res.status(204).end();
         });
 });
-
 module.exports = router;
-
-//ability to create event
-////= event name
-////event date/time
-//// assign ppl (search by name, last, or status, only dates entered)
-//// if available = green and can be assigned
-//// if unavailable red w/ event listed undername
-
-//ability to search for users and their schedules
-// can see a month calendar of their plans
-
-//create travel dates
-////ability to remove, update, add
-
-
-////once travel plans are created, all users can see
