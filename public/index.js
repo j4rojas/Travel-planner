@@ -185,7 +185,7 @@ function getSchedules() {
                 <p class="sch edDate">End Date: ${endDate}</p> 
                 <p class="sch edTime">End Time: ${myJson[i].endTime}</p>
                 <input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
-                </details>        
+                </details>
                 `);
             }
         })
@@ -383,3 +383,13 @@ function logOut(){
     });
 }
 logOut();
+
+function logOut2(){
+    $('#signOut2').click(function(event){
+        event.preventDefault();
+        localStorage.removeItem('token');
+        $('#loginPage').show();
+        $('#scheduleInfo').hide();
+    });
+}
+logOut2();

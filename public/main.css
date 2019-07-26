@@ -102,8 +102,15 @@ button {
 
 .calendarIcon {
     position:absolute;
-    margin-left:10%;
-    margin-top:-3.4%;
+    margin-left:12%;
+    margin-top:-64px;
+}
+.eventIcon {
+    position:absolute;
+    margin-left:5%;
+    margin-top:-64px;
+    width:50px;
+    height:50px;
 }
 
 .middle, .middleEvent {
@@ -132,13 +139,6 @@ button {
     font-size: 16px;
     padding: 12px 24px;
 }  
-.eventIcon {
-    position:absolute;
-    margin-left:5%;
-    margin-top:-3.4%;
-    width:50px;
-    height:50px;
-}
 
 .deleteIcon, .editIcon {
     position:relative;
@@ -150,12 +150,16 @@ button {
 
 #signOut {
     position: absolute;
-    margin: -645px 80%;
-    width: 10%;  
-    height:4.2%; 
+    margin: -61px 82.5%;
+    width: 145px;  
+    height:43px; 
     color:white;
     background-color:rgba(57, 121, 240, 0.1);
     font-size:18px;
+}
+
+.signOut2 {
+    display:none;
 }
 .searchPpl {
     padding: 15px;
@@ -175,21 +179,9 @@ button {
     }
     .firstname, .regUsername, .startDate, .endDate, .startDate2, .endDate2 {
         margin-right:7%;
-    }
-    .eventIcon, .calendarIcon {
-        margin-top: -4.5%;
-    }
-    .eventIcon{
-        margin-left: 5%;
-    }
-    .calendarIcon {
-        margin-left: 12%;
-    }
-    #signOut {
-       margin: -644px 80%;
-       width:10.5%;
-       height:4.2%;
-       font-size: 18px;
+    }  
+    .signOut2 {
+        display:none;
     }
    
     .middleEvent {
@@ -209,23 +201,11 @@ button {
 }
 
 @media only screen and (max-width:1365px) {
-    .eventIcon, .calendarIcon {
-        margin-top: -65px;
-    }
-    .eventIcon {
-        margin-left: 3.5%;
-    }
-    .calendarIcon{
-        margin-left: 14%;
-    }
     .schitem {
         width:42.5%;
     }
-    #signOut {
-        margin: -643px 79%;
-        width: 11.5%;
-        height: 4.3%;
-        font-size:20px;
+    .signOut2{
+        display:none;
     }
     
 }
@@ -246,21 +226,6 @@ button {
     .single {
         margin-right: -2px;
     }
-    .eventIcon {
-        margin-left: 3.5%;
-        margin-top: -65px;
-    }
-    .calendarIcon {
-        margin-left: 14%;
-        margin-top: -65px;
-    }
-    #signOut {
-        margin: -645px 78%;
-        width: 13%;
-        height: 3.5%;
-        font-size:20px;
-    }
-   
     .middle {
         top:8%;
         left:26.5%;
@@ -268,6 +233,12 @@ button {
     .middleEvent{
         top:8%;
         left:14%;
+    }
+    #signOut {
+    margin-left: 74%;
+    }
+    .calendarIcon{
+        margin-left:15%;
     }
 }
 @media only screen and (max-width:800px) {
@@ -279,6 +250,9 @@ button {
     }
     .schitem {
         width:50%;
+    }
+    #signOut{
+        margin-left: 71%;
     }
 }
 @media only screen and (max-width:600px) {
@@ -292,14 +266,22 @@ button {
     .single {
         margin-right:-2px;
     }
-    #signOut {
-        margin: auto 25.5%;
-        width:45%;
-        height: 6%;
-        font-size:22px;
-        background-color: rgb(3, 30, 58);
+
+    .signout{
+        display:none;
     }
     
+    #signOut2 {
+        display:block;
+        position:absolute;
+        margin: auto 28.6%;
+        width:40%;
+        height: 50px;
+        font-size:22px;
+        background-color: rgb(3, 30, 58);
+        color:white;
+    }
+   
     .eventIcon, .calendarIcon {
         height: 42px;
         width:42px;
