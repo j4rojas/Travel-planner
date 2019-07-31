@@ -8,13 +8,13 @@ function formatDate(uglyDate){
     return time.getHours() + ":" + time.getMinutes()
 } */
 
-// function forgotPage(){
-//     $('.pwd').click(function(){
-//         $('#requestpwdPage').show();
-//         $('#loginPage').hide();
-//     });
-// }
-// forgotPage();
+function forgotPage(){
+    $('.pwd').click(function(){
+        $('#requestpwdPage').show();
+        $('#loginPage').hide();
+    });
+}
+forgotPage();
 
 function registerPage(){
     $('.reg').click(function(){
@@ -41,13 +41,13 @@ function createSchedule() {
 }
 createSchedule();
 
-// function createEvent() {
-//     $('.eventIcon').click(function(){
-//         $('#scheduleInfo').hide();
-//         $('#createEventPage').show();
-//     });
-// }
-// createEvent();
+function createEvent() {
+    $('.eventIcon').click(function(){
+        $('#scheduleInfo').hide();
+        $('#createEventPage').show();
+    });
+}
+createEvent();
 
 function verifyUser() {
     $('#sigbtn').click(function(event){
@@ -192,7 +192,7 @@ function getSchedules() {
             }
         })
 };
-//line 189 <input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
+//<input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
 
 //deletes a schedule
 $(document).on('click','.deleteIcon',function (event){
@@ -269,38 +269,38 @@ $(document).on('click','.deleteIcon',function (event){
 //     .catch(error => console.error(error));
 // }) 
 
-// function addEvent() {
-//     $('#eventbtn').click(function(event){
-//         event.preventDefault();
-//         $('#createEventPage').hide();
-//         $('#scheduleInfo').show();
-//         const data = {
-//             description: $('.descriptionInput').val(),
-//             startDate: $('.startDate').val(),
-//             endDate: $('.endDate').val(),
-//         }
-//         fetch('/event/new' + localStorage.getItem('token'), {
-//             headers: {
-//                 'Content-Type':'application/json',
-//             },
-//             method:'POST',
-//             body: Json.stringify(data),
-//         })
-//         .then(function(response){
-//             return response.json();
-//         })
-//         .then(function(myJson){
-//             if(myJson.error) {
-//                 alert(myJson.message);
-//                 return
-//             }
-//             getSchedules();
-//             console.log(myJson);
-//         })
-//         .catch(error => console.error(error));
-//     })
-// }
-// addEvent();
+function addEvent() {
+    $('#eventbtn').click(function(event){
+        event.preventDefault();
+        $('#createEventPage').hide();
+        $('#scheduleInfo').show();
+        const data = {
+            description: $('.descriptionInput').val(),
+            startDate: $('.startDate').val(),
+            endDate: $('.endDate').val(),
+        }
+        fetch('/event/new' + localStorage.getItem('token'), {
+            headers: {
+                'Content-Type':'application/json',
+            },
+            method:'POST',
+            body: Json.stringify(data),
+        })
+        .then(function(response){
+            return response.json();
+        })
+        .then(function(myJson){
+            if(myJson.error) {
+                alert(myJson.message);
+                return
+            }
+            getSchedules();
+            console.log(myJson);
+        })
+        .catch(error => console.error(error));
+    })
+}
+addEvent();
 
 // //search for available users 
 // function watchForm () {
@@ -363,7 +363,7 @@ $('#registerPage').hide();
 $('#scheduleInfo').hide();
 $('#addTravelPage').hide();
 //$('#editForm').hide();
-//$('#createEventPage').hide();
+$('#createEventPage').hide();
 //$('#assignPage').hide();
 $('#loginPage').hide(); //does loginPage need to be hidden @ beginning?
 

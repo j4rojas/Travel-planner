@@ -101,39 +101,6 @@ router.post('/new/:token', verifyToken, (req, res) => {
         });
 });
 
-router.put('/one/:id/:token',verifyToken, (req,res) => {
-    
-    console.log(req.params.id);
-    console.log('best');
-    Schedule.findByIdAndUpdate(req.params.id, function(err,schedule){
-        console.log('inside findById');
-        console.log(err);
-        console.log(schedule);
-    })
-
-    //create object for update 
-    /*Schedule 
-        .findById(req.params.id)
-        .then(schedule => {
-            console.log('inside find by id');
-            console.log(schedule.person);
-            console.log(req.user.id);
-           if(schedule.person ===req.user.id) {
-            schedule.location = req.body.location,
-            schedule.startDate = req.body.startDate,
-            schedule.startTime = req.body.startTime,
-            schedule.endDate = req.body.endDate,
-            schedule.event = req.body.event
-            schedule.save()
-            .then(schedule => schedule.serialize())
-            .catch(err => res.status(500).json({message: 'Internal server error'}));
-           }
-           else{
-               res.status(400).json({message:'schedule does not match'});
-           }
-        })
-        .catch(err => res.status(500).json({message: 'Internal server error'})); */
-});
 
 router.delete('/one/:id/:token',verifyToken,(req,res)=> {
     Schedule
