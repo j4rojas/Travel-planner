@@ -8,13 +8,13 @@ function formatDate(uglyDate){
     return time.getHours() + ":" + time.getMinutes()
 } */
 
-function forgotPage(){
-    $('.pwd').click(function(){
-        $('#requestpwdPage').show();
-        $('#loginPage').hide();
-    });
-}
-forgotPage();
+// function forgotPage(){
+//     $('.pwd').click(function(){
+//         $('#requestpwdPage').show();
+//         $('#loginPage').hide();
+//     });
+// }
+// forgotPage();
 
 function registerPage(){
     $('.reg').click(function(){
@@ -41,13 +41,13 @@ function createSchedule() {
 }
 createSchedule();
 
-function createEvent() {
-    $('.eventIcon').click(function(){
-        $('#scheduleInfo').hide();
-        $('#createEventPage').show();
-    });
-}
-createEvent();
+// function createEvent() {
+//     $('.eventIcon').click(function(){
+//         $('#scheduleInfo').hide();
+//         $('#createEventPage').show();
+//     });
+// }
+// createEvent();
 
 function verifyUser() {
     $('#sigbtn').click(function(event){
@@ -129,7 +129,9 @@ function addTravel() {
             location: $('.locationInput').val(),
             event: $('.eventInput').val(),
             startDate: $('.startDate').val(),
-            endDate: $('.endDate').val()
+            startTime:$('.startTime').val(),
+            endDate: $('.endDate').val(),
+            endTime: $('.endTime').val()
        }
         fetch('/schedule/new/' + localStorage.getItem('token'), {
             headers: {
@@ -184,12 +186,13 @@ function getSchedules() {
                 <p class="sch stTime">Start Time: ${myJson[i].startTime}</p>
                 <p class="sch edDate">End Date: ${endDate}</p> 
                 <p class="sch edTime">End Time: ${myJson[i].endTime}</p>
-                <input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
+                
                 </details>
                 `);
             }
         })
 };
+//line 189 <input type="image" src="images/editIcon.png" class="editIcon" value="${myJson[i]._id}" alt="editIcon"/>
 
 //deletes a schedule
 $(document).on('click','.deleteIcon',function (event){
@@ -210,131 +213,131 @@ $(document).on('click','.deleteIcon',function (event){
             return
         }
     })
-    .catch(error => console.error(error));
+    .catch(error => console.error (error));
 })
 
 //edit schedule/travel plan
-$(document).on('click','.editIcon',function (event){
-    event.preventDefault();
-    const htmlObj = $(this).parent();
-    const info = htmlObj.find('p');
-    let updateInfo = {};
-    let objKeys = ['location','startDate','startTime','endDate','endTime','event'];
-    for(let i=0; i < info.length; i++ ){
-        let key = objKeys[i];
-        updateInfo[key] = $(info[i]).text().split(':')[1].trim()
-    }
-    console.log('testing edit Travel');
-    $('#editForm').show();
-    $('#scheduleInfo').hide();
-    $('.locationInput2').val(updateInfo.location);
-    $('.eventInput2').val(updateInfo.event);
-    $('.startDate2').val(updateInfo.startDate);
-    $('.endDate2').val(updateInfo.endDate);
-    $('.endTime2').val(updateInfo.endTime);
-    $('#updateTravelbtn').val(event.currentTarget.value);
-})
+// $(document).on('click','.editIcon',function (event){
+//     event.preventDefault();
+//     const htmlObj = $(this).parent();
+//     const info = htmlObj.find('p');
+//     let updateInfo = {};
+//     let objKeys = ['location','startDate','startTime','endDate','endTime','event'];
+//     for(let i=0; i < info.length; i++ ){
+//         let key = objKeys[i];
+//         updateInfo[key] = $(info[i]).text().split(':')[1].trim()
+//     }
+//     console.log('testing edit Travel');
+//     $('#editForm').show();
+//     $('#scheduleInfo').hide();
+//     $('.locationInput2').val(updateInfo.location);
+//     $('.eventInput2').val(updateInfo.event);
+//     $('.startDate2').val(updateInfo.startDate);
+//     $('.endDate2').val(updateInfo.endDate);
+//     $('.endTime2').val(updateInfo.endTime);
+//     $('#updateTravelbtn').val(event.currentTarget.value);
+// })
 
-$(document).on('click','#updateTravelbtn',function (event){
-    event.preventDefault();
-    const data = {
-        location: $('.locationInput2').val(),
-        startDate: $('.startDate2').val(),
-        startTime: $('.startTime2').val(),
-        endDate: $('.endDate2').val(),
-        endTime: $('.endTime2').val(),
-        event: $('.eventInput2').val()
-    } 
-    const url = '/schedule/one/' + event.currentTarget.value +'/'+localStorage.getItem('token');
-    fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        method:'PUT',
-        body: JSON.stringify(data),
-    })
-    .then(function(response){
-    return response.json();
-    })
-    .then(function(myJson){
-        if(myJson.error) {
-            alert(myJson.message);
-            return
-        }
-        console.log(myJson);
-    })
-    .catch(error => console.error(error));
-}) 
+// $(document).on('click','#updateTravelbtn',function (event){
+//     event.preventDefault();
+//     const data = {
+//         location: $('.locationInput2').val(),
+//         startDate: $('.startDate2').val(),
+//         startTime: $('.startTime2').val(),
+//         endDate: $('.endDate2').val(),
+//         endTime: $('.endTime2').val(),
+//         event: $('.eventInput2').val()
+//     } 
+//     const url = '/schedule/one/' + event.currentTarget.value +'/'+localStorage.getItem('token');
+//     fetch(url, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         method:'PUT',
+//         body: JSON.stringify(data),
+//     })
+//     .then(function(response){
+//     return response.json();
+//     })
+//     .then(function(myJson){
+//         if(myJson.error) {
+//             alert(myJson.message);
+//             return
+//         }
+//         console.log(myJson);
+//     })
+//     .catch(error => console.error(error));
+// }) 
 
-function addEvent() {
-    $('#eventbtn').click(function(event){
-        event.preventDefault();
-        $('#createEventPage').hide();
-        $('#scheduleInfo').show();
-        const data = {
-            description: $('.descriptionInput').val(),
-            startDate: $('.startDate').val(),
-            endDate: $('.endDate').val(),
-        }
-        fetch('/event/new' + localStorage.getItem('token'), {
-            headers: {
-                'Content-Type':'application/json',
-            },
-            method:'POST',
-            body: Json.stringify(data),
-        })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(myJson){
-            if(myJson.error) {
-                alert(myJson.message);
-                return
-            }
-            getSchedules();
-            console.log(myJson);
-        })
-        .catch(error => console.error(error));
-    })
-}
-addEvent();
+// function addEvent() {
+//     $('#eventbtn').click(function(event){
+//         event.preventDefault();
+//         $('#createEventPage').hide();
+//         $('#scheduleInfo').show();
+//         const data = {
+//             description: $('.descriptionInput').val(),
+//             startDate: $('.startDate').val(),
+//             endDate: $('.endDate').val(),
+//         }
+//         fetch('/event/new' + localStorage.getItem('token'), {
+//             headers: {
+//                 'Content-Type':'application/json',
+//             },
+//             method:'POST',
+//             body: Json.stringify(data),
+//         })
+//         .then(function(response){
+//             return response.json();
+//         })
+//         .then(function(myJson){
+//             if(myJson.error) {
+//                 alert(myJson.message);
+//                 return
+//             }
+//             getSchedules();
+//             console.log(myJson);
+//         })
+//         .catch(error => console.error(error));
+//     })
+// }
+// addEvent();
 
-//search for available users 
-function watchForm () {
-    $('#searchBtn').click(function(event){
-        event.preventDefault();
-        let userSearch = $('.searchPpl').val();
-        $('.results').empty();
-        assignPeople(userSearch);
-    })
-}
+// //search for available users 
+// function watchForm () {
+//     $('#searchBtn').click(function(event){
+//         event.preventDefault();
+//         let userSearch = $('.searchPpl').val();
+//         $('.results').empty();
+//         assignPeople(userSearch);
+//     })
+// }
 
-function assignPeople(){
-    $('#eventbtn').click(function(event){
-        event.preventDefault();
-        $('#assignPage').show();
-        $('#createEventPage').hide();
-        fetch('person/people/', {
-           headers: {
-               'Content-Type': 'application/json',
-           },
-           method: 'GET',
-        })
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(myJson){
-            if(myJson.error) {
-                alert(myJson.message);
-                return
-            }
-            renderPeople(myJson);
-            console.log(myJson);
-        })
-        .catch(error => console.error(error));
-    })
-}
-assignPeople();
+// function assignPeople(){
+//     $('#eventbtn').click(function(event){
+//         event.preventDefault();
+//         $('#assignPage').show();
+//         $('#createEventPage').hide();
+//         fetch('person/people/', {
+//            headers: {
+//                'Content-Type': 'application/json',
+//            },
+//            method: 'GET',
+//         })
+//         .then(function(response){
+//             return response.json();
+//         })
+//         .then(function(myJson){
+//             if(myJson.error) {
+//                 alert(myJson.message);
+//                 return
+//             }
+//             renderPeople(myJson);
+//             console.log(myJson);
+//         })
+//         .catch(error => console.error(error));
+//     })
+// }
+// assignPeople();
 
 /*
 function renderPeople(myJson) {
@@ -356,13 +359,12 @@ function renderPeople(myJson) {
 
 */
 $('#registerPage').hide();
-$('#requestpwdPage').hide();
+//$('#requestpwdPage').hide();
 $('#scheduleInfo').hide();
 $('#addTravelPage').hide();
-$('#editForm').hide();
-$('#testing').hide();
-$('#createEventPage').hide();
-$('#assignPage').hide();
+//$('#editForm').hide();
+//$('#createEventPage').hide();
+//$('#assignPage').hide();
 $('#loginPage').hide(); //does loginPage need to be hidden @ beginning?
 
 if(localStorage.getItem('token')) {

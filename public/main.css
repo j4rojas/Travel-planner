@@ -24,6 +24,10 @@ p {
     padding: 9px;
     margin-top: 2px;
 }
+.landingPage {
+    color:white;
+    font-size:20px;
+}
 
 form {
     border-radius: 5px;
@@ -150,7 +154,7 @@ button {
 
 #signOut {
     position: absolute;
-    margin: -61px 82.5%;
+    margin: -61px 81.5%;
     width: 145px;  
     height:43px; 
     color:white;
@@ -197,6 +201,9 @@ button {
     .schitem {
         width: 35%
     }
+    #signOut {
+        margin-left:80.5%;
+    }
 }
 
 @media only screen and (max-width:1365px) {
@@ -205,6 +212,9 @@ button {
     }
     .signOut2{
         display:none;
+    }
+    #signOut {
+        margin-left: 78%;
     }
     
 }
@@ -232,7 +242,7 @@ button {
         left:14%;
     }
     #signOut {
-    margin-left: 74%;
+    margin-left: 77%;
     }
     .calendarIcon{
         margin-left:15%;
@@ -249,7 +259,7 @@ button {
         width:50%;
     }
     #signOut{
-        margin-left: 71%;
+        margin-left: 72%;
     }
 }
 @media only screen and (max-width:600px) {

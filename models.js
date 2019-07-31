@@ -17,15 +17,15 @@ const personSchema = mongoose.Schema({
 });   
 
 // schema to represent an event
-const eventSchema = mongoose.Schema({
-    person:{type:mongoose.Schema.Types.ObjectId, ref:'Person'},
-    description: {type: String, required: true},
-    startDate: {type:Date, required:true},
-    //startTime:{type:String},
-    endDate: {type:Date, required:true},
-    //endTime: {type:String}
+// const eventSchema = mongoose.Schema({
+//     person:{type:mongoose.Schema.Types.ObjectId, ref:'Person'},
+//     description: {type: String, required: true},
+//     startDate: {type:Date, required:true},
+//     //startTime:{type:String},
+//     endDate: {type:Date, required:true},
+//     //endTime: {type:String}
 
-});
+// });
 
 //schema to represent a schedule 
 const scheduleSchema = mongoose.Schema({
@@ -65,16 +65,16 @@ scheduleSchema.virtual('personName').get(function(){
 });
 
 
-eventSchema.methods.serialize = function() {
-    return {
-      id: this._id,  
-      description: this.description,
-      startDate: this.startDate,
-      //startTime: this.startTime,
-      endDate: this.userName,
-      //endDate: this.endDate,
-    };
-  };
+// eventSchema.methods.serialize = function() {
+//     return {
+//       id: this._id,  
+//       description: this.description,
+//       startDate: this.startDate,
+//       //startTime: this.startTime,
+//       endDate: this.userName,
+//       //endDate: this.endDate,
+//     };
+//   };
 
 scheduleSchema.methods.serialize = function() {
     return {
@@ -88,7 +88,7 @@ scheduleSchema.methods.serialize = function() {
 
 var Person = mongoose.model('Person', personSchema);
 const Schedule = mongoose.model('Schedule', scheduleSchema);  
-const Event = mongoose.model('Event',eventSchema);
+// const Event = mongoose.model('Event1',eventSchema);
 
-module.exports = {Person, Schedule,Event};
+module.exports = {Person, Schedule};
 

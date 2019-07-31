@@ -102,15 +102,7 @@ router.post('/new/:token', verifyToken, (req, res) => {
 });
 
 router.put('/one/:id/:token',verifyToken, (req,res) => {
-    console.log('testing update');
-    const toUpdate = {};
-    const updateableFields = ['location','startDate','startTime','endDate','endTime','event'];
-
-    updateableFields.forEach(field=> {
-        if(field in req.body){
-            toUpdate[field] = req.body[field];
-        }
-    });
+    
     console.log(req.params.id);
     console.log('best');
     Schedule.findByIdAndUpdate(req.params.id, function(err,schedule){
@@ -118,6 +110,8 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
         console.log(err);
         console.log(schedule);
     })
+
+    //create object for update 
     /*Schedule 
         .findById(req.params.id)
         .then(schedule => {

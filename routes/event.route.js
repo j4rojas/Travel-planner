@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Event = require('../models').Event;
+const Event1 = require('../models').Event;
 const jwt = require('jsonwebtoken');
 
 function verifyToken (req,res,next) {
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/all/:token',verifyToken,(req, res) => {
-    Event 
+    Event1 
     .find({person:req.user.id})
     .then(events => res.json(events))
     .catch(err => {
@@ -37,10 +37,10 @@ router.get('/all/:token',verifyToken,(req, res) => {
 });    
     
 router.get('/one/:id/:token',verifyToken,(req,res) => {
-    Event 
+    Event1 
     .findById(req.params.id)
-    .then(event => {
-        if(event.person===req.user.id) {
+    .then(event1 => {
+        if(event1.person===req.user.id) {
         res.json(event.serialize())
         }
         else {
@@ -61,10 +61,10 @@ router.get('/event',(req,res)=> {
             filters[field] = req.query[field];
         }
     });
-    Event
+    Event1
         .find(filters)
-        .then(event => res.json(
-            Event.map(event => event.serialize())
+        .then(event1 => res.json(
+            Event1.map(event1 => event1.serialize())
         ))
         .catch(err => {
             console.error(err);
@@ -84,7 +84,7 @@ router.post('/new/:token', verifyToken, (req, res) => {
             return res.status(400).send(message);
         }
     }
-    Event
+    Event1
         .create({
             person: req.user.id,
             description: req.body.description,                                   
@@ -93,7 +93,7 @@ router.post('/new/:token', verifyToken, (req, res) => {
             endDate: req.body.endDate,
             endTime: req.body.endTime,
         })
-        .then(event => res.status(201).json(event.serialize()))
+        .then(event1 => res.status(201).json(event1.serialize()))
         .catch(err => {
             console.error(err);
             res.status(500).json({message: 'Internal server error'});
@@ -110,15 +110,15 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
         }
     });
 
-    Event
+    Event1
         .findById(req.params.id)
-        .then(event => {
-           if(event.person ===req.user.id) {
-            event.description = req.body.description,
-            event.startDate = req.body.startDate,
-            event.endDate = req.body.endDate,
-            event.save()
-            .then(event => event.serialize())
+        .then(event1 => {
+           if(event1.person ===req.user.id) {
+            event1.description = req.body.description,
+            event1.startDate = req.body.startDate,
+            event1.endDate = req.body.endDate,
+            event1.save()
+            .then(event1 => event1.serialize())
             .catch(err => res.status(500).json({message: 'Internal server error'}));
            }
            else{
@@ -129,7 +129,7 @@ router.put('/one/:id/:token',verifyToken, (req,res) => {
 });
 
 router.delete('/one/:id/:token',verifyToken,(req,res)=> {
-    Event
+    Event1
         .findByIdAndRemove(req.params.id)
         .then(() => {
             res.status(204).end();
