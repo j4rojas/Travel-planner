@@ -1,7 +1,11 @@
-#Travel-Planner
+# Travel-Planner
 create an account and add future travel dates. Remove them once you have completed your travel.
 
-## Live Link: https://j4rojas.github.io/Travel-Planner/
+## Live Link: https://salty-stream-43394.herokuapp.com/
+demo username:
+### amau
+demo password: 
+### 1234
 
 ## HTML/CSS/JavaScript/jQuery/node.js
 technologies used are listed above. APIs were created to store user and schedule information.
