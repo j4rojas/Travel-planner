@@ -22,5 +22,6 @@
   },
   "devDependencies": {
     "mocha": "^6.1.4"
-  }
+  },
+  "engines": { "node": "10.x" }
 }
