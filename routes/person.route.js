@@ -26,7 +26,6 @@ router.get('/people',(req,res)=> {
 //new User
 
 router.post('/new', (req, res) => {
-    console.log(req.body);
     const requiredFields = ['firstName', 'lastName','email', 'userName','password'];
     for (let i=0; i<requiredFields.length; i++) {
         const field= requiredFields[i];
@@ -74,7 +73,6 @@ router.post('/new', (req, res) => {
 });
 
 router.post('/login',(req,res)=> {
-    console.log(req.body.userName);
     Person.findOne({userName:req.body.userName}) 
     .then(personFind => {
         if(!personFind) {

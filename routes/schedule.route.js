@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 function verifyToken (req,res,next) {
     const token = req.params.token;
-    console.log(token);
     if(!token) {
         res.status(400).json({message:'token not provided'});
         return
@@ -74,7 +73,6 @@ router.get('/schedule',(req,res)=> {
 
 
 router.post('/new/:token', verifyToken, (req, res) => {  
-    console.log(req.body);
     const requiredFields = ['location', 'startDate','endDate', 'event'];
     for (let i=0; i<requiredFields.length; i++) {
         const field= requiredFields[i];
