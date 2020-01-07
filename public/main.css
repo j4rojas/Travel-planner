@@ -319,9 +319,6 @@ button {
     .schitem {
         width:65%;
     }
-    p {
-        text-align:left;
-    }
     .pwd, .reg, .lgnin {
         text-align:center;
     }
